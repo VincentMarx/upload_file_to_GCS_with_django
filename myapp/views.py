@@ -1,5 +1,6 @@
 from django.shortcuts import render
-
+from django.utils import timezone
+from datetime import datetime
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -15,10 +16,18 @@ def list(request):
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
         files = request.FILES.getlist('docfile')
+        user = request.user.username
         if form.is_valid():
             for f in files:
-                newdoc = Document(docfile=f)
-                newdoc.save()
+                filename = f.name
+                try:
+                    doc = Document.objects.get(filename=filename)
+                    doc.filename = filename
+                    doc.uploadedby = user
+                    doc.lastuploadtime = timezone.now().strftime("%Y-%m-%d %H:%M:%S")
+                except Document.DoesNotExist:
+                    doc = Document(docfile=f, filename=filename, uploadedby=user, lastuploadtime=timezone.now().strftime("%Y-%m-%d %H:%M:%S"))
+                doc.save()
 
             # Redirect to the document list after POST
             return HttpResponseRedirect(reverse('list'))

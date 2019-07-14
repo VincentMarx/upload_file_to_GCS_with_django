@@ -34,7 +34,7 @@
                     <tr>
                       <th scope="col">File Name</th>
                       <th scope="col">Uploaded By</th>
-                      <th scope="col">Last Modified</th>
+                      <th scope="col">Last Upload Time</th>
                     </tr>
                 </thead>
 
@@ -42,7 +42,9 @@
                     <tbody>
                         {% for document in documents %}
                             <tr>
-                                <td><a href="{{ document.docfile.url }}">{{ document.docfile.name }}</a></td>
+                                <td><a href="{{ document.docfile.url }}">{{ document.filename }}</a></td>
+                                <td>{{ document.uploadedby }}</td>
+                                <td>{{ document.lastuploadtime }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
