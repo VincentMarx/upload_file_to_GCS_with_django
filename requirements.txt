@@ -1,2 +1,9 @@
-Django
-django-storages[google]
+Django==2.2.3
+mysqlclient==1.4.2
+django-storages==1.7.1
+google-api-core==1.13.0
+google-auth==1.6.3
+google-cloud-core==1.0.2
+google-cloud-storage==1.16.1
+google-resumable-media==0.3.2
+googleapis-common-protos==1.6.0

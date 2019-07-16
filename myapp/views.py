@@ -25,6 +25,7 @@ def list(request):
                     doc.filename = filename
                     doc.uploadedby = user
                     doc.lastuploadtime = timezone.now().strftime("%Y-%m-%d %H:%M:%S")
+                    doc.docfile = f
                 except Document.DoesNotExist:
                     doc = Document(docfile=f, filename=filename, uploadedby=user, lastuploadtime=timezone.now().strftime("%Y-%m-%d %H:%M:%S"))
                 doc.save()
