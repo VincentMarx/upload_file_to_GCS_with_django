@@ -171,3 +171,6 @@ from google.oauth2 import service_account
 GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
     "data-analystic-dev-8a0e1d47068c.json"
 )
+GOOGLE_APPLICATION_CREDENTIALS=service_account.Credentials.from_service_account_file(
+    "data-analystic-dev-8a0e1d47068c.json"
+)

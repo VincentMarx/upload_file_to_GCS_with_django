@@ -1,13 +1,15 @@
 from django.shortcuts import render
 from django.utils import timezone
-from datetime import datetime
+import json
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
+from django.http import HttpResponse
 from django.urls import reverse
 
 from myapp.models import Document
 from myapp.forms import DocumentForm
 from django.contrib.auth.decorators import login_required
+from composer_request import dag_trigger
 
 
 @login_required
@@ -41,3 +43,10 @@ def list(request):
 
     # Render list page with the documents and the form
     return render(request, 'list.html', {'documents': documents, 'form': form})
+
+
+@login_required
+def process(request):
+    dag_id = "cloud_genesis_hk"
+    response = dag_trigger.trigger(dag_id)
+    return HttpResponse(json.dumps(response), content_type="application/json")
